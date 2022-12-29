@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ShareRide</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/Bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/Bootstrap/js/bootstrap.js">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+
+    <!-- navigation bar start-->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="nav-link active" aria-current="page" href="{%url 'home' %}">
+                <img src="/static/images/share_logo.jpeg" alt="" width="60" height="40"
+                    class="d-inline-block align-text-top">
+                <img src="/static/images/logo2.jpg" alt="" width="150" height="40"
+                    class="d-inline-block align-text-top">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            Home
+            </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Rides</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Approvel Requests
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">User Details</a>
+            </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <ul class="navbar-nav">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="#">{{request.user.first_name}} </a></li>
+                    <li class="nav-item">
+                        <a href="{%url 'signout' %}" class="nav-link">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{%url 'signin' %}" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{%url 'signup' %}" class="nav-link">Register</a>
+
+                    </li>
+                    {% endif %}
+                </ul>
+            </form>
+        </div>
+        </div>
+    </nav>
+
+    <!-- navigation bar end-->
+
+
+    <!-- detail start  -->
+
+    <div class="container" style="margin-top: 100px;">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="dashBoard-item">
+                    <h5>Approvel Requests</h5><br>
+                <h1>{{ap_userlegth}}</h1>
+            </div>
+            </div>
+            <div class="col">
+                <div class="dashBoard-item">
+                    <h5>USERS</h5><br>
+                    <h1>{{userlegth}}</h1>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="dashBoard-item">
+               <h5>COMPLAITS</h5><br>
+               <h1>0</h1>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+    {% block content %}
+        
+        
+
+    <!-- tables starts -->
+    <div class="container text-center mt-4">
+        <h3>Approvel Requests</h3>
+    </div>
+
+    <div class="container mt-5">
+
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Home</th>
+                <th scope="col">City</th>
+                <th scope="col">State and contry</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+                {% for users in unapprovedusers  %}
+                {% if users.UserID.is_active == False %}
+
+                <tr>
+                    <td >{{users.UserID.first_name}}</td>
+                    <td>{{users.House}}</td>
+                    <td>{{users.Location}}</td>
+                    <td>{{users.State}} {{users.Contry}}</td>
+                    <td><a href="{%url 'UserView' users.DetailID %}" class="btn btn-dark">View</a></td>
+                  </tr>
+                    
+                {% endif %} 
+                {% endfor %}
+                    
+            </tbody>
+          </table>
+          
+
+    </div>
+
+    <div class="container text-center mt-4">
+        <h3>All Users</h3>
+    </div>
+
+    <div class="container mt-5">
+
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">FIRST NAME</th>
+                <th scope="col">LAST NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">USERNAME</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+                {% for user in users  %}
+                <tr>
+                    <td >{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.username}}</td>
+                    {% if user.is_active == False %}
+                    <td style="color: red;">Inactive</td>
+                    {% else %}
+                    <td style="color: green;">Active</td>
+                    {% endif %}
+                    <td><a href="#" class="btn btn-dark">View</a></td>
+                  </tr>
+                    
+                {% endfor %}
+                    
+            </tbody>
+          </table>
+          
+
+    </div>
+
+    <div class="container text-center mt-4">
+        <h3>All Rides</h3>
+    </div>
+
+    <div class="container mt-5">
+
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Rider name</th>
+                <th>Passenger Name</th>
+                <th scope="col">Starting Place</th>
+                <th scope="col">Ending Place</th>
+                <th scope="col">Price</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Ride Mode</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+                {% for ride in rides  %}
+                <tr>
+                    <td >{{ride.RiderId.first_name}}</td>
+                    <td></td>
+                    <td>{{ride.Departure_Place}}</td>
+                    <td>{{ride.Arrival_palce}}</td>
+                    <td>{{ride.Price}}</td>
+                    <td>{{ride.Departure_time}}</td>
+                    <td>{{ride.Arrival_time}}</td>
+<td>{{ride.Ridemode}}</td>
+                    {% if ride.Ridestatus == "pending" %}
+                    <td style="color: yellow;">Pending</td>
+                    {% elif ride.Ridestatus == "completed"  %}
+                    <td style="color: green;">Completed</td>
+                    {% elif ride.Ridestatus == "ongoing"  %}
+                    <td style="color: rgb(0, 9, 128);">Ongoing</td>
+                    {% else %}
+                    <td style="color: rgb(241, 19, 45);">Cancelled</td>
+
+                    {% endif %}
+                  </tr>
+                    
+                {% endfor %}
+                    
+            </tbody>
+          </table>
+          
+
+    </div>
+
+
+
+    <!-- detail end  -->
+    {% endblock %}
+
+    <!-- footer start  -->
+    <div class="container-fluid text-center mt-5 bg-light" style="height: 100px;background-color:white;    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    ">
+        Created BY &hearts; Pramod
+    </div>
+    <!-- footer end  -->
+
+</body>
+
+</html>

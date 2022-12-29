@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+{% load static %}
+{% static "images" as baseurl %}
+{% block content %}
+<style>
+    .col{
+        margin: 20px;
+    }
+</style>
+
+<div class="container mt-5">
+    <br><br>
+    {% for message in messages%}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Alert!</strong> {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+    <div class="userdetailsbox mt-5">
+        <div class="row">
+            
+            {% for user in userdetail %}
+                
+                
+            <div class="col">
+                name: {{user.UserID.first_name}} <br><br>
+                address: {{user.House}},{{user.Location}},{{user.State}},{{user.Contry}} <br><br>
+                Phone: {{user.Phone}} <br><br>
+                email : {{user.UserID.email}} <br><br>
+                
+                {% if user.UserID.is_active == False %}
+                Status :<h5 style="color:red"> InActive </h5>
+                <a href="{%url 'Approvel' user.DetailID %}" class="btn btn-success">ACTIVATE</a>
+
+                {% else %}
+                Status :<h5 style="color:green"> Active </h5>
+                <a href="{%url 'Approvel' user.DetailID %}" class="btn btn-warning">DEACTIVATE</a>
+
+                {% endif %}
+
+
+                <br><br>
+                <a href="" class="btn btn-danger">Reject And Delete</a>
+                <a href="" class="btn btn-danger">Delete</a>
+            </div>
+            <div class="col">
+                <img src="{{user.Document.url}}" alt="" style="width:80%;height:auto;">
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</div>
+    
+{% endblock %}
+    

@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container-md" style="margin-top:10%">
+    <div class="card text-center">
+        <div class="card-header bg-info">
+            Add A Ride
+            {% for message in messages%}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Alert!</strong> {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <label for="dplace">Select Ride Mode:</label>
+
+                        <select class="form-control" name="ridemode" id="">
+                            <option value="" disabled selected>Select</option>
+                            <option value="Car">Car</option>
+                            <option value="Bike">Bike</option>
+                        </select>
+                       
+                    </div>
+                    <div class="col">
+                        <label for="dplace">Departure Place:</label>
+                        <input type="text" class="form-control" placeholder="Departure Place" name="dplace"aria-label="Last name">
+                    </div>
+                    <div class="col">
+                        <label for="dplace">Arrival Place:</label>
+                        <input type="text" class="form-control" placeholder="Arrival Place" name="aplace" aria-label="First name">
+                    </div>
+                    <div class="col">
+                        <label for="dplace">Allowed Passengers:</label>
+                        <input type="number" class="form-control" placeholder="Allowed Passengers" name="allowedpass" aria-label="Last name">
+                    </div>
+                    <br><br><br><br><br><br>
+                    <div class="row">
+                        <div class="col">
+                        <label for="dplace">Departure Date:</label>
+                        <input type="datetime-local" class="form-control" placeholder="Departure Date" name="Ddate" aria-label="First name">   
+                        </div> 
+
+                        <div class="col">
+                        <label for="dplace">Arrival date:</label>
+                        <input type="datetime-local" class="form-control" placeholder="Arrival Date" name="Adate" aria-label="First name">
+                        </div> 
+
+                        <div class="col">
+                        <label for="dplace">Ride Price:</label>
+                        <input type="number" class="form-control" placeholder="price" name="price" aria-label="First name">
+                        </div>
+
+                    </div>
+                    <br><br><br><br>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" value="Add Ride" class="btn btn-primary" style="width:200px">
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

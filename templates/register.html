@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container-md" style="margin-top:10%">
+    <div class="card text-center">
+        <div class="card-header bg-info">
+            Registration
+            {% for message in messages%}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert">
+                <strong>Alert!</strong> {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="#alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    {%csrf_token%}
+                    {% for feild in userform %}
+                    <div class="col-6">
+                        {{feild.label}} : <br>
+                        {{feild}} <br><br>
+                    </div>
+                    {% endfor %}
+
+                    <br><br>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" value="Register" class="btn btn-primary" style="width:200px">
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+    </div>
+    {% endblock %}

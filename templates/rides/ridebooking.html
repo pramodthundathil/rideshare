@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+    h5{
+        display: inline;
+    }
+</style>
+<div class="container mt-5">
+    <div class="row mt-5">
+        
+        {% for r in ride %}
+            
+        <div class="col">
+            <div class="userdetailsbox">
+                Ride: <h5>{{r.Ridemode}}</h5>  <br><br>
+                Rider: <h5>{{r.RiderId.first_name}}</h5> <br><br>
+                Travel: <h5>{{r.Departure_Place}} &RightArrow; {{r.Arrival_palce}}</h5> <br><br>
+                Price: <h5>{{r.Price}}</h5> <br><br>
+                Time : <h5>{{r.Departure_time}} &RightArrow; {{r.Arrival_time}}</h5> <br><br>
+
+            </div>
+        </div>
+        <div class="col text-center mt-5">
+            <div class="userdetailsbox mt-5">
+                <h3>Book Now</h3>
+            <form method="post">
+                <textarea name="message" rows="4" style="width:80%;" placeholder="message"></textarea><br><br>
+                {% csrf_token %}
+                <button type="submit" name="submit" value="{{r.Rideid}}" class="btn btn-warning">Book Ride</button>
+            </form>
+                
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+    
+{% endblock %}
+    

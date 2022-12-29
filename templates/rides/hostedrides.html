@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div style="margin-top: 80px;">
+<div class="container mt-5">
+    <div class="userdetailsbox mt-5">
+        <table class="table table-striped-columns">
+            <tr>
+                <th>Passenger Name</th>
+                <th>Destinations</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>DeleteHistory</th>
+            </tr>
+            
+            {% for t in trip  %}
+            <tr>
+                <td>{{t.Passenger.first_name}}</td>
+                <td>{{t.Rideid.Arrival_palce}}</td>
+                <td>{{t.RideStatus}}</td>
+                <td>{{t.Rideid.Arrival_time}}</td>
+                <td><button  class="btn btn-danger">Delete</button></td>
+            </tr>
+                
+            {% endfor %}
+                
+          </table>
+    </div>
+</div>
+</div>
+    
+{% endblock %}
+    

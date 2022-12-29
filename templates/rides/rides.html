@@ -1,0 +1,111 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container-fluid" style="margin-top:10%">
+    <div class="container text-center">
+        <h1>Select a Ride From the List</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+        
+        
+        {% for r in rides %}
+
+        {% if r.Ridestatus == 'pending'%}
+            
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/images/rideshare-banner3.jpeg" class="card-img-top" alt="..." style="height:200px">
+                <div class="card-body">
+                    {% if r.Ridemode == "Bike" %}
+                    <h5 class="card-title">Bike Ride</h5>
+                    {% elif r.Ridemode == "Car" %}
+                    <h5 class="card-title">Car Ride</h5>
+                    {% endif %}
+
+                    <p class="card-text">
+                        <strong>{{r.Departure_Place}} &RightArrow; {{r.Arrival_palce}}</strong><br><br>
+                        Time: <small> {{r.Departure_time}} &RightArrowBar; {{r.Arrival_time}}</small> <br><br>
+                        Price: <h3>{{r.Price}}</h3>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Rider: <h6>{{r.RiderId.first_name}}</h6></small>
+                        </div>
+                        <div class="col">
+                            <a href="{%url 'ReserveDrive' r.Rideid%}" class="card-link btn btn-info">Reserve Ride</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+<!--             
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/images/rideshare-banner3.jpeg" class="card-img-top" alt="..." style="height:200px">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This content is a little bit longer.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="card-link btn btn-info">view Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/images/rideshare-banner2.jpeg" class="card-img-top" alt="..." style="height:200px">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="card-link btn btn-info">view Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/images/rideshare-banner.png" class="card-img-top" alt="..." style="height:200px">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This card has even longer content than the first to show that equal height
+                        action.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="card-link btn btn-info">view Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+    {% endblock %}

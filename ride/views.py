@@ -82,3 +82,11 @@ def Myrides(request):
     
     return render(request,"rides/myrides.html",context)
         
+def AddedRides(request):
+    trip = Rides.objects.filter(RiderId = request.user)
+    
+    context = {
+        "trip":trip
+    }
+    
+    return render(request,'rides/hostedrides.html',context)

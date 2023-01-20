@@ -9,4 +9,5 @@ urlpatterns = [
     path("ReserveDrive/<int:pk>",views.ReserveDrive,name="ReserveDrive"),
     path('FinishTrip/<int:pk>',views.FinishTrip,name="FinishTrip"),
     path("Myrides",views.Myrides,name="Myrides"),
+    path("AddedRides",views.AddedRides,name="AddedRides"),
 ]

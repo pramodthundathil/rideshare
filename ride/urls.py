@@ -10,4 +10,8 @@ urlpatterns = [
     path('FinishTrip/<int:pk>',views.FinishTrip,name="FinishTrip"),
     path("Myrides",views.Myrides,name="Myrides"),
     path("AddedRides",views.AddedRides,name="AddedRides"),
+    path("DeleteMyride/<int:pk>",views.DeleteMyride,name="DeleteMyride"),
+    path("Bookingconfirm",views.Bookingconfirm,name="Bookingconfirm"),
+    path("Payment/paymenthandler/",views.paymenthandler,name="Payment/paymenthandler/"),
+    path("Payment/<int:pk>",views.Payment,name="Payment")
 ]

@@ -16,4 +16,10 @@ class UserDetails(models.Model):
     Document = models.FileField(upload_to="user_documents",null=True,blank=True)
     Message = models.CharField(max_length=255,null=True,blank=True)
     
+class UserMessages(models.Model):
+    Usermessage = models.CharField(max_length=2000)
+    AdminMessage = models.CharField(max_length=2000,null=True,blank=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+     
+    
         

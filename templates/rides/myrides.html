@@ -3,6 +3,12 @@
 {% block content %}
 <div style="margin-top: 80px;">
 <div class="container mt-5">
+    
+    {% for m in messages  %}
+    <h6 style="color:red;text-align:center">{{m}}</h6>
+        
+    {% endfor %}
+        
     <div class="userdetailsbox mt-5">
         <table class="table table-striped-columns">
             <tr>
@@ -19,7 +25,7 @@
                 <td>{{t.Rideid.Arrival_palce}}</td>
                 <td>{{t.RideStatus}}</td>
                 <td>{{t.Rideid.Arrival_time}}</td>
-                <td><button  class="btn btn-danger">Delete</button></td>
+                <td><a href="{%url 'DeleteMyride' t.Ongoingid %}" class="btn btn-danger">Delete</a></td>
             </tr>
                 
             {% endfor %}

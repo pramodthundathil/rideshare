@@ -9,17 +9,33 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
 from ride.models import Rides, OngoingRides
-
+from .models import UserMessages
 from .decorators import admin_only
+from datetime import datetime
 
 
 # Create your views here.
 @admin_only
 def home(request):
-    
+    date = datetime.now()
+    rides = Rides.objects.filter(Arrival_time__lte = date)
+    for i in rides:
+        try:
+            trip = OngoingRides.objects.get(Rideid = i)
+            trip.RideStatus = "completed"
+            r = Rides.objects.get(Rideid = i.Rideid)
+            r.Ridestatus = "completed"
+            r.save()
+        except:
+            r = Rides.objects.get(Rideid = i.Rideid)
+            r.Ridestatus = "completed"
+            r.save()
+            continue
+    # rides = Rides.objects.filter()
     ongoingrides = OngoingRides.objects.filter(Passenger = request.user)
     context = {
-        "ongoingrides":ongoingrides
+        "ongoingrides":ongoingrides,
+        "date":date
     }
     return render(request,"index.html",context)
 
@@ -51,7 +67,7 @@ def signin(request):
 
 def signup(request):
     
-    userform = UserAddform()
+    form = UserAddform()
     
     if request.method == 'POST':
         
@@ -83,7 +99,7 @@ def signup(request):
                 messages.success(request,"Your Account Created Successfully Fill out the Feilds To Activate User Account")
                 return redirect('UserDetails', pk = pk)
     
-    return render(request,"register.html",{"userform":userform})
+    return render(request,"register.html",{"form":form})
 
 def UserDetails(request,pk):
     userdetailform = UserDetailForm()
@@ -108,3 +124,15 @@ def signout(request):
     
     logout(request)
     return redirect('home')
+
+def Messages(request):
+    mesg = UserMessages.objects.filter(user = request.user)
+    if request.method == 'POST':
+        message = request.POST['message']
+        msg = UserMessages.objects.create(Usermessage = message,user = request.user)
+        msg.save()
+        return redirect(Messages)
+    context={
+        "mesg":mesg
+    }
+    return render(request,"message.html",context)

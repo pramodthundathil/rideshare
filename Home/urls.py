@@ -8,7 +8,8 @@ urlpatterns = [
     path("signout",views.signout,name="signout"),
     
     path('admin_page',views.admin_page,name="admin_page"),
-    path("UserDetails/<int:pk>",views.UserDetails,name="UserDetails")
+    path("UserDetails/<int:pk>",views.UserDetails,name="UserDetails"),
+    path("Messages",views.Messages,name="Messages"),
     
     
 ]

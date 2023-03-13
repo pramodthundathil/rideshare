@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Ride Share</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'images/share_logo.jpeg' %}" rel="icon">
@@ -46,7 +46,7 @@
                         
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a class="nav-link" href="{%url 'Messages' %}">Message</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -103,8 +103,8 @@
         {% for ridestatus in ongoingrides  %}
 
         
-        {% if ridestatus.RideStatus == "ongoing"  %}    
-
+        {% if ridestatus.RideStatus == "ongoing"  %} 
+        
         <div class="card text-center bg-success mt-5">
             <div class="card-body">
                 <b>

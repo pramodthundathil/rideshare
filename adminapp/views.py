@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from Home.models import UserDetails
+from Home.models import UserDetails,UserMessages
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -18,7 +18,8 @@ def AdminHome(request):
         "users":users,
         "userlegth":len(users),
         "ap_userlegth": len(ap_users),
-        "rides":rides
+        "rides":rides,
+        "usermessages":UserMessages.objects.all().count
     }
     
     return render(request,"adminindex.html",context)
@@ -46,6 +47,37 @@ def Approvel(request,pk):
         messages.info(request,"User Activated")
         
     return redirect("UserView", pk = pk)
+
+def DeleteUser(request,pk):
+    user = UserDetails.objects.get(DetailID = pk)
+    mainuser  = user.UserID
+    mainuser.delete()
+    user.delete()
+    return redirect("AdminHome")
+
+def AdminMessages(request):
+    unapprovedusers = UserDetails.objects.all()
+    users = User.objects.all()
+    ap_users = User.objects.filter(is_active = False) 
+    rides = Rides.objects.all()
+    mesg = UserMessages.objects.all()
+    
+    context = {
+        'unapprovedusers':unapprovedusers,
+        "users":users,
+        "userlegth":len(users),
+        "ap_userlegth": len(ap_users),
+        "rides":rides,
+        "mesg":mesg
+    }
+    return render(request,'adminmessagehadling.html',context)
+
+def AddAdminReplay(request,pk):
+    replay = request.POST['replay']
+    msg = UserMessages.objects.get(id = pk)
+    msg.AdminMessage = replay
+    msg.save()
+    return redirect("AdminMessages")
     
     
     

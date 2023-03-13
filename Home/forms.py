@@ -26,6 +26,7 @@ class UserDetailForm(ModelForm):
         model = UserDetails
         fields = ("Phone","House","Location","State","Contry","PostalCode","Document","Message")
         widgets = {
+            "Phone":TextInput(attrs={'class': 'form-control','pattern':"[0-9]{10,12}", 'title':"Please enter the mobile number with specific country code(uae : 00971xxxxxxxxx, India : 0091xxxxxxxxxx, etc..)"}),
             "House":TextInput(attrs={'class': 'form-control'}),
             "Location":TextInput(attrs={'class': 'form-control'}),
             "State":TextInput(attrs={'class': 'form-control'}),

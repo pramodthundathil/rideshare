@@ -24,6 +24,7 @@
             <div class="userdetailsbox mt-5">
                 <h3>Book Now</h3>
             <form method="post">
+                <input type="number" name="phone" placeholder="Phone Number" style="width:80%;" required><br><br>
                 <textarea name="message" rows="4" style="width:80%;" placeholder="message"></textarea><br><br>
                 {% csrf_token %}
                 <button type="submit" name="submit" value="{{r.Rideid}}" class="btn btn-warning">Book Ride</button>

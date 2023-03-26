@@ -45,8 +45,9 @@ def AddRide(request):
         departuredate = request.POST["Ddate"]
         arrival_date = request.POST["Adate"]
         ride_price = request.POST["price"]
+        contact = request.POST["number"]
         
-        ride = Rides.objects.create(RiderId=request.user,Ridemode=ridemode,Departure_Place=departure_place,Departure_time=departuredate,Arrival_palce=arrival_place,Allowed_Passengers=allowedpassengers,Arrival_time=arrival_date,Price=ride_price,Ridestatus="pending")
+        ride = Rides.objects.create(RiderId=request.user,Ridemode=ridemode,Departure_Place=departure_place,Departure_time=departuredate,Arrival_palce=arrival_place,Allowed_Passengers=allowedpassengers,Arrival_time=arrival_date,Price=ride_price,Ridestatus="pending",Phone_Number_rider = contact)
         ride.save()
         messages.info(request,"Ride Added")
         return redirect("home")
@@ -61,7 +62,8 @@ def ReserveDrive(request,pk):
     
     if request.method == "POST":
         msg = request.POST["message"]
-        ridebook = OngoingRides.objects.create(Rideid = rideget ,Passenger = request.user,RideStatus = "ongoing" ,comments = msg )
+        phone = request.POST['phone']
+        ridebook = OngoingRides.objects.create(Rideid = rideget ,Passenger = request.user,RideStatus = "ongoing" ,comments = msg,phone = phone )
         ridebook.save()
         
         rideget.Ridestatus = "ongoing"

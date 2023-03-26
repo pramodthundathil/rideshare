@@ -16,6 +16,7 @@
                 <th>Destinations</th>
                 <th>Status</th>
                 <th>Date</th>
+                <th>Contact Number</th>
                 <th>DeleteHistory</th>
             </tr>
             
@@ -25,6 +26,7 @@
                 <td>{{t.Rideid.Arrival_palce}}</td>
                 <td>{{t.RideStatus}}</td>
                 <td>{{t.Rideid.Arrival_time}}</td>
+                <td>{{t.phone}}</td>
                 <td><a href="{%url 'DeleteMyride' t.Ongoingid %}" class="btn btn-danger">Delete</a></td>
             </tr>
                 
